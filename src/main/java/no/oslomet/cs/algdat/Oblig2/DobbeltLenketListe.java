@@ -49,7 +49,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         Node forrigeNode = null;
 
-        //Node[] nodes = new Node[0];
         for (int i = 0; i < a.length; i++) {
             if (a[i] == null) { //verdier som er null hoppes over
                 continue;
@@ -57,14 +56,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             Node n = new Node(a[i]); //Nodene opprettes
 
             if (forrigeNode != null) { //Sjekker om forrige finnes, peker til forrige og neste
-                n.forrige = forrigeNode;
-                forrigeNode.neste = n;
+                n.forrige = forrigeNode; // Setter denne nodens forrige til å være forrige node
+                forrigeNode.neste = n; //Setter forrige nodes neste til å være nye noden
             } else { //Hvis forrige node ikke finnes
                 this.hode = n;
             }
             antall++;
-
-            forrigeNode = n;
+            forrigeNode = n; //Setter til å være noden som nettopp ble opprettet
 
         }
         this.hale = forrigeNode; //Setter hale til siste verdi
@@ -130,19 +128,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-    @Override
+   /*  @Override
     public String toString() {
-    StringJoiner sj = new StringJoiner(",", "[","]");
-Node <T> verdi = hode;
-if (hode != null) {
-    sj.add(hode.verdi.toString());
-
-    while (verdi != null) {
-        sj.add(verdi.verdi.toString());
+        StringJoiner sj = new StringJoiner(",", "[", "]");
+        Node<T> node = hode;
+        while (node != null) { //Forsetter å kjøre så lenge node ikke er null
+            if (node == hale) {
+                sj.add(node.verdi);
+else{
+    sj.add(node.verdi);
+                }
+node = node.neste;
+            }
+        }
+        return sj.toString();
     }
-}
-return sj;
-    }
+    */
 
     public String omvendtString() {
         throw new UnsupportedOperationException();
@@ -194,13 +195,11 @@ return sj;
     }
 
     public static void main(String[] args) {
-    /*   Liste<String> liste = new DobbeltLenketListe<>();
-        System.out.println(liste.antall() + " " + liste.tom()); */
+
 
         String[] s = {"Ole", null, "Per", "Kari", null};
         Liste<String> liste = new DobbeltLenketListe<>(s);
         System.out.println(liste.antall() + " " + liste.tom());
-
 
     }
 } // class DobbeltLenketListe
