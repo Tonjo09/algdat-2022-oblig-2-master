@@ -6,6 +6,7 @@ package no.oslomet.cs.algdat.Oblig2;
 import java.awt.*;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 
@@ -84,12 +85,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(verdi, "Tabellen a er null!"); // Sjekker om verdien er null
+
+        Node<T> n = new Node<>(verdi);
+
+        if ((hode == null) && (hale == null)) {
+            hode = n;
+            hale = n;
+        }
+
+return true;
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
