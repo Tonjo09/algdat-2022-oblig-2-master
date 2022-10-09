@@ -92,10 +92,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if ((hode == null) && (hale == null)) {
             hode = n;
             hale = n;
+        } else {
+            Node<T> bakerst = new Node<>(verdi);
+            hale = n;
+            hale.neste = bakerst;
+            hale = bakerst;
         }
-
-return true;
+        antall = +1;
+        endringer = +1;
+        return true;
     }
+
+
 
     @Override
     public void leggInn(int indeks, T verdi) {
@@ -206,18 +214,12 @@ return true;
     }
 
     public static void main(String[] args) {
-        String[] s = {"Ole", null, "Per", "Kari", null};
-        Liste<String> liste = new DobbeltLenketListe<>(s);
-        System.out.println(liste.antall() + " " + liste.tom());
-
-        String[] s1 = {}, s2 = {"A"}, s3 = {null, "A", null, "B", null};
-        DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
-        DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
-        DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
-
-        System.out.println(l1.toString() + " " + l2.toString()
-                + " " + l3.toString() + " " + l1.omvendtString() + " "
-                + l2.omvendtString() + " " + l3.omvendtString());
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        System.out.println(liste.toString() + " " + liste.omvendtString());
+        for (int i = 1; i <= 3; i++) {
+            liste.leggInn(i);
+            System.out.println(liste.toString() + " " + liste.omvendtString());
+        }
     }
 } // class DobbeltLenketListe
 
