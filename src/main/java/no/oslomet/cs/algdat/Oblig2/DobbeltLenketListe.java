@@ -1,6 +1,5 @@
 package no.oslomet.cs.algdat.Oblig2;
 
-
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
@@ -55,14 +54,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             Node n = new Node(a[i]); //Nodene opprettes
 
-            if (forrigeNode != null) { //Sjekker om forrige finnes, peker til forrige og neste
-                n.forrige = forrigeNode; // Setter denne nodens forrige til å være forrige node
-                forrigeNode.neste = n; //Setter forrige nodes neste til å være nye noden
+            if (forrigeNode != null) { //Sjekker om forrige finnes
+                n.forrige = forrigeNode; // Setter denne nodens forrige til å peke til forrige node
+                forrigeNode.neste = n; //Setter forrige node til å peke til nye noden
             } else { //Hvis forrige node ikke finnes
                 this.hode = n;
             }
             antall++;
-            forrigeNode = n; //Setter til å være noden som nettopp ble opprettet
+            forrigeNode = n; //Setter noden som ble opprettet til forrigeNode som skal brukes videre
 
         }
         this.hale = forrigeNode; //Setter hale til siste verdi
@@ -128,26 +127,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-   /*  @Override
+    @Override
     public String toString() {
         StringJoiner sj = new StringJoiner(",", "[", "]");
         Node<T> node = hode;
         while (node != null) { //Forsetter å kjøre så lenge node ikke er null
-            if (node == hale) {
-                sj.add(node.verdi);
-else{
-    sj.add(node.verdi);
-                }
-node = node.neste;
-            }
+            sj.add(node.verdi.toString());
+            node = node.neste; //Node blir neste for neste løkke i while løkken
         }
         return sj.toString();
     }
-    */
+
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+        StringJoiner sj = new StringJoiner(",", "[", "]");
+        Node<T> node = hale;
+        while (node != null) { //Forsetter å kjøre så lenge node ikke er null
+            sj.add(node.verdi.toString());
+            node = node.forrige; //Node blir forrige for neste løkke i while løkken
+        }
+        return sj.toString();
     }
+
 
     @Override
     public Iterator<T> iterator() {
@@ -195,12 +196,18 @@ node = node.neste;
     }
 
     public static void main(String[] args) {
-
-
         String[] s = {"Ole", null, "Per", "Kari", null};
         Liste<String> liste = new DobbeltLenketListe<>(s);
         System.out.println(liste.antall() + " " + liste.tom());
 
+        String[] s1 = {}, s2 = {"A"}, s3 = {null, "A", null, "B", null};
+        DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
+        DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
+        DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
+
+        System.out.println(l1.toString() + " " + l2.toString()
+                + " " + l3.toString() + " " + l1.omvendtString() + " "
+                + l2.omvendtString() + " " + l3.omvendtString());
     }
 } // class DobbeltLenketListe
 
