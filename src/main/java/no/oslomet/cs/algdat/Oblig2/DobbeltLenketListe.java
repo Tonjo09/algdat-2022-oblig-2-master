@@ -38,26 +38,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
-    //Hjelpemetoden 
-    Node<T> finnNode (int indeks) {
+    //Hjelpemetode
+    Node<T> finnNode(int indeks) {
+        int idx;
         Node<T> n;
 
-        if(indeks < (antall/2)) {
-            n = hode; //Starter å lete fra hode
-            int teller = 0; //Teller for while løkke
+        if (indeks < (antall / 2)) { //Starter fra hode og skal finne indeks
+            idx = 0;
+            n = hode;
 
-            else {
-                n = hale; //Starter å lete fra hale
-                teller--;
-
+            while (idx < indeks) {
+                n = n.neste;
+                idx++;
             }
+        } else {  //Starter å lete fra hale, bak listen
+            idx = (antall - 1);
+            n = hale;
 
-
-
-
+            while (idx > indeks) ;
+            n = hale.forrige;
+            idx--;
         }
+        //Nooden blir returnert som følge av while loopene
+        return n;
     }
-
 
 
     public DobbeltLenketListe() {
@@ -126,7 +130,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-
     @Override
     public void leggInn(int indeks, T verdi) {
         throw new UnsupportedOperationException();
@@ -139,7 +142,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+       ;
     }
 
     @Override
@@ -214,10 +217,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             throw new UnsupportedOperationException();
         }
 
-        Node<T> finnNode (int indeks) {
-
-        }
-
         @Override
         public boolean hasNext() {
             return denne != null;
@@ -240,12 +239,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public static void main(String[] args) {
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
-        System.out.println(liste.toString() + " " + liste.omvendtString());
-        for (int i = 1; i <= 3; i++) {
-            liste.leggInn(i);
-            System.out.println(liste.toString() + " " + liste.omvendtString());
-        }
+        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
+        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        System.out.println(liste.subliste(3, 8));  // [D, E, F, G, H]
+        System.out.println(liste.subliste(5, 5));  // []
+        System.out.println(liste.subliste(8, liste.antall()));  // [I, J]
+        // System.out.println(liste.subliste(0,11));  // skal kaste unntak
     }
 } // class DobbeltLenketListe
 
