@@ -38,6 +38,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
+    //Hjelpemetoden 
+    Node<T> finnNode (int indeks) {
+        Node<T> n;
+
+        if(indeks < (antall/2)) {
+            n = hode; //Starter å lete fra hode
+            int teller = 0; //Teller for while løkke
+
+            else {
+                n = hale; //Starter å lete fra hale
+                teller--;
+
+            }
+
+
+
+
+        }
+    }
+
+
+
     public DobbeltLenketListe() {
 
     }
@@ -87,19 +109,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi, "Tabellen a er null!"); // Sjekker om verdien er null
 
-        Node<T> n = new Node<>(verdi);
+        Node<T> n = new Node<>(verdi); // Oppretter ny node
 
-        if ((hode == null) && (hale == null)) {
+        if (this.tom()) { //Hvis ny liste er tom. Setter hode hale til ny node
             hode = n;
             hale = n;
         } else {
-            Node<T> bakerst = new Node<>(verdi);
-            hale = n;
-            hale.neste = bakerst;
-            hale = bakerst;
+            hale.neste = n; //Nest siste node sin neste er nye node
+            n.forrige = hale; //Nye noden siden forrige er nest siste
+            hale = n; // Ny noden er nye halen
+
         }
-        antall = +1;
-        endringer = +1;
+        antall += 1;
+        endringer += 1;
         return true;
     }
 
@@ -190,6 +212,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         private DobbeltLenketListeIterator(int indeks) {
             throw new UnsupportedOperationException();
+        }
+
+        Node<T> finnNode (int indeks) {
+
         }
 
         @Override
