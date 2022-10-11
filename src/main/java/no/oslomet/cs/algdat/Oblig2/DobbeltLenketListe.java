@@ -174,6 +174,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hode = hode.forrige;
             }
         }
+    }
 
 
     @Override
