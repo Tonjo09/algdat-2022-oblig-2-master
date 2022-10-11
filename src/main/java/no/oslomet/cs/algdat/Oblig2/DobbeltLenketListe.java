@@ -167,11 +167,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi) {
-        throw new UnsupportedOperationException();
+//indeksTil() metoden blir brukt til å returnere true hvis listen inneholder verdi, og false ellers
+        return indeksTil(verdi) != -1;
     }
 
     @Override
-    //finnNode() brukes til å finne noden på indeks, også blir verdien returnert eller null om den ikke finnes.
+    //finnNode() brukes til å finne noden på indeks, også blir verdien returnert eller null om den ikke finnes
     public T hent(int indeks) {
         indeksKontroll(indeks, false);
         Node<T> n = finnNode(indeks);
@@ -183,11 +184,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (verdi == null) //En metode som ikke kaster unntak dersom verdien er null
             return -1;
 
+        //Starter fra hode og looper gjennom fram til man finner verdien, returnerer posisjon til verdi hvis den finnes
         Node<T> n = hode;
         for (int i = 0; i < antall; i++, n = n.neste) {
             if (n.verdi.equals(verdi)) return i;
         }
-        return -1;
+        return -1; //Hvis vi ikke fant noe node med verdien så returnerer vi -1
     }
 
     @Override
