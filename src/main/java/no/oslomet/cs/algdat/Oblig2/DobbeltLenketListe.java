@@ -180,15 +180,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        if (verdi == null) {
+        if (verdi == null) //En metode som ikke kaster unntak dersom verdien er null
             return -1;
-        }
+
         Node<T> n = hode;
-        int idx = 0;
-        while (n != null) {
-
+        for (int i = 0; i < antall; i++, n = n.neste) {
+            if (n.verdi.equals(verdi)) return i;
         }
-
+        return -1;
     }
 
     @Override
@@ -298,7 +297,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         System.out.println(liste.subliste(3, 8));  // [D, E, F, G, H]
         System.out.println(liste.subliste(5, 5));  // []
         System.out.println(liste.subliste(8, liste.antall()));  // [I, J]
-       // System.out.println(liste.subliste(0,11));  // skal kaste unntak
+        // System.out.println(liste.subliste(0,11));  // skal kaste unntak
     }
 } // class DobbeltLenketListe
 
