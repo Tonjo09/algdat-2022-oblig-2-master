@@ -101,7 +101,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         public Liste<T> subliste ( int fra, int til){
         fratilKontroll(antall, fra, til); //Sjekker om listen er gyldig
-
+ int idx = 0;
         }
 
     //Hjelpemetode fratilKontroll
