@@ -365,13 +365,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             fjernOK = false;
             iteratorendringer = endringer;
 
-            int idx = 0; // hopper over nodene frem til vi kommer til indeks 'indeks'
-            Node<T> cur = hode;
+            int idx = 0; // Hopper over nodene frem til vi kommer til indeks
+            Node<T> n = hode;
             while (idx < indeks) {
-                cur = cur.neste;
+                n = n.neste;
                 idx++;
             }
-            denne = cur;
+            denne = n;
         }
 
         @Override
