@@ -4,10 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 
 
 import java.awt.*;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -375,7 +372,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            throw new UnsupportedOperationException();
+            if(endringer != iteratorendringer) //Feilhåndetering
+                throw new ConcurrentModificationException();
+            if(!hasNext())
+                throw new NoSuchElementException();
+
+            fjernOK = true;
+            //Oppdaterer verdi og setter denne til å være neste i linkedlisten
+            T value = denne.verdi;
+            denne = denne.neste;
+            return value;
+        }
         }
 
         @Override
