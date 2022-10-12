@@ -241,29 +241,78 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        if(verdi == null)
+            return false; //Det er ikke meningen at vår linkedlisten skal ha null verdier, så vi returnerer 'false' med en gang.
+
+        //Looper igjennom listen fra hode til hale
+        Node<T> n = hode;
+        while (n != null) {
+            //Sjekker noden har den verdien vi letter etter
+            if(n.verdi.equals(verdi)) {
+                if(n.neste != null) {
+                    n.neste.forrige = n.forrige;
+                } else {
+                    //så er vi på halen
+                    hale = n.forrige;
+                    if(hale != null)
+                        hale.neste = null;
+                }
+
+                if(n.forrige != null) {
+                    n.forrige.neste = n.neste;
+                } else {
+                    //så er vi på hode
+                    hode = n.neste;
+                    if(hode != null)
+                        hode.forrige = null;
+                }
+
+                antall--;
+                endringer++;
+                return true;
+            }
+
+            n = n.neste;
+        }
+        return false; //Verdien finnes ikke i linkedlisten
     }
 
+
     @Override
-    public T fjern(int indeks) {
-        indeksKontroll(indeks, false);
+        public T fjern(int indeks) {
+            indeksKontroll(indeks, false);
 
-        Node<T> current = hode;
-        T verdi;
-
-        //Første indeks som skal slettes og returnere verdien på posisjonen
-        if (indeks == 0) {
-            verdi = current.verdi;
-
-            if (current.neste != null) {
-                hode = current.neste;
-                hode.forrige = null;
-            } else {
-                hode = null;
-                hale = null;
+            int idx = 0; // Starter på indeks
+            Node<T> n = hode;
+            while (idx < indeks) {
+                n = n.neste;
+                idx++;
             }
-        }
 
+            //oppdaterer pekere utifra om dette er hode, hale eller et sted i midten
+            if(n.neste != null) {
+                n.neste.forrige = n.forrige;
+            } else {
+                //På halen
+                hale = n.forrige;
+                if(hale != null)
+                    hale.neste = null;
+            }
+
+            if(n.forrige != null) {
+                n.forrige.neste = n.neste;
+            } else {
+                //På hode
+                hode = n.neste;
+                if(hode != null)
+                    hode.forrige = null;
+            }
+
+            //Oppdaterer endringer, antall og returner verdien til noden som er fjernet
+            endringer++;
+            antall--;
+            return n.verdi;
+        }
 
 
 
