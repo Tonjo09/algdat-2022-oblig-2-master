@@ -313,7 +313,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        StringJoiner sj = new StringJoiner(",", "[", "]");
+        StringJoiner sj = new StringJoiner(", ", "[", "]");
         Node<T> node = hode;
         while (node != null) { //Forsetter å kjøre så lenge node ikke er null
             sj.add(node.verdi.toString());
