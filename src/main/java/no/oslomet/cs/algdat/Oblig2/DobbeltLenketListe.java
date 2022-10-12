@@ -114,16 +114,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Hjelpemetode fratilKontroll
     private static void fratilKontroll(int antall, int fra, int til) {
         if (fra < 0)                                  // fra er negativ
-            throw new IndexOutOfBoundsException
-                    ("fra(" + fra + ") er negativ!");
+            throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
 
         if (til > antall)                          // til er utenfor tabellen
-            throw new IndexOutOfBoundsException
-                    ("til(" + til + ") > antall(" + antall + ")");
+            throw new IndexOutOfBoundsException("til(" + til + ") > antall(" + antall + ")");
 
         if (fra > til)                                // fra er større enn til
-            throw new IllegalArgumentException
-                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+            throw new IllegalArgumentException("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
     }
 
     @Override
@@ -162,10 +159,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         indeksKontroll(indeks, true); //Stoppes null-verdier? Kastes i så fall en NullPointerException?
         Objects.requireNonNull(verdi); //Ikke tillatt med null-verdier
 
+
         //Hvis vi legger til med indeks 0, så legger vi til noden som hode
         if (indeks == 0) { //Sjekkes indeksen?
             if (antall == 0) { //Blir det korrekt hvis listen fra før er tom?
-                hale = hode = new Node<>(verdi, null, null); //Sette hale og hode til å peke mot null hvis antall == 0
+                hale = hode = new Node<>(verdi); //Sette hale og hode til å peke mot null hvis antall == 0
             } else {
                 hode.forrige = new Node<>(verdi, null, hode); //Blir pekerne (forrige og neste) korrekte i alle noder hvis ny verdi legges først?
                 hode = hode.forrige;
@@ -173,13 +171,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         //Hvis vi legger til på slutten av linkedlisten så oppdaterer vi halen
         else if (indeks == antall) {
-            hale.neste = new Node<>(verdi, hale, null); //Blir pekerne (forrige og neste) korrekte i alle noder hvis ny verdi legges bakerst?
+            hale.neste = new Node<>(verdi, hale, null);
             hale = hale.neste;
         }
-        //Ellers så går vi fra 0 til indeks, også legger en ny node mellom forrige og neste
+        //Ellers går vi fra 0 til indeks, også legger en ny node mellom forrige og neste.
         else {
             Node<T> n = hode;
-            for (int i = 0; i < indeks; i++) {
+            for (int i = 0; i < indeks - 1; i++) {
                 n = n.neste;
             }
             Node<T> ny = new Node<>(verdi, n, n.neste); //Blir pekerne (forrige og neste) korrekte i alle noder hvis ny verdi legges mellom to verdier?
@@ -251,8 +249,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 } else {
                     //så er vi på halen
                     hale = n.forrige;
-                    if (hale != null)
-                        hale.neste = null;
+                    if (hale != null) hale.neste = null;
                 }
 
                 if (n.forrige != null) {
@@ -260,8 +257,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 } else {
                     //så er vi på hode
                     hode = n.neste;
-                    if (hode != null)
-                        hode.forrige = null;
+                    if (hode != null) hode.forrige = null;
                 }
 
                 antall--;
@@ -292,8 +288,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         } else {
             //På halen
             hale = n.forrige;
-            if (hale != null)
-                hale.neste = null;
+            if (hale != null) hale.neste = null;
         }
 
         if (n.forrige != null) {
@@ -301,8 +296,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         } else {
             //På hode
             hode = n.neste;
-            if (hode != null)
-                hode.forrige = null;
+            if (hode != null) hode.forrige = null;
         }
 
         //Oppdaterer endringer, antall og returner verdien til noden som er fjernet
@@ -362,14 +356,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            fjernOK = false;
             iteratorendringer = endringer;
-
-            int idx = 0; // Hopper over nodene frem til vi kommer til indeks
+            fjernOK = false;
             Node<T> n = hode;
-            while (idx < indeks) {
+            for (int i = 0; i < indeks; i++) {
                 n = n.neste;
-                idx++;
             }
             denne = n;
         }
@@ -382,9 +373,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         @Override
         public T next() {
             //Feilhåndtering
-            if (endringer != iteratorendringer)
+            if(endringer != iteratorendringer)
                 throw new ConcurrentModificationException();
-            if (!hasNext())
+            if(!hasNext())
                 throw new NoSuchElementException();
 
             fjernOK = true;
