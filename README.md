@@ -3,7 +3,7 @@
 Denne oppgaven er en innlevering i Algoritmer og Datastrukturer. 
 Oppgaven er levert av følgende studenter:
 * Tony Nguyen, S341492, s341492@oslomet.no
-* ...
+
 
 # Arbeidsfordeling
 
