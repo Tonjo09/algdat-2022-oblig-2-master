@@ -14,7 +14,7 @@ Tony oppgaver fra 1 - 8, utenom oppgave 7
 
 Oppgavebeskrivelse
 
-I oppgave 1 ble det laget en metode som returnerer antall verdier i listen, og en metode som sjekker om listen er tom. Så laget vi en konstruktør som tar inn et array og gjør det om til en dobbelt lenket liste, denne sjekker om tabellen er tom, har nullverdier, og fjerner eventuelle nullmerker.
+I oppgave 1 ble det laget en metode som returnerer antall verdier i listen, og en metode som sjekker om listen er tom. Det er også laget en konstruktør som tar inn et array og gjør det om til en dobbelt lenket liste, denne sjekker om tabellen er tom, har nullverdier, og fjerner eventuelle nullmerker.
 
 I oppgave 2 er det laget en toString metode, som skriver ut listen på ønsket form [1,2,3], og [] for tom liste. Så laget vi omvendtString som er tilsvarende toString men den starter bakerst. Så laget vi metoden leggInn, den sjekker etter nullverdier, så legger den inn verdien bakerst i listen. Dette gjøres ved å først sjekke om listen er tom, i så fall er det bare en verdi etter innsetting, og hode og hale er samme verdi. Hvis listen ikke er tom legges det inn en node etter hale og neste og forrige pekere blir satt til riktig node.
 
