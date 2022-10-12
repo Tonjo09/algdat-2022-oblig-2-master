@@ -246,8 +246,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-       ;
-    }
+        indeksKontroll(indeks, false);
+
+        Node<T> current = hode;
+        T verdi;
+
+        //Første indeks som skal slettes og returnere verdien på posisjonen
+        if (indeks == 0) {
+            verdi = current.verdi;
+
+            if (current.neste != null) {
+                hode = current.neste;
+                hode.forrige = null;
+            } else {
+                hode = null;
+                hale = null;
+            }
+        }
+
+
+
 
     @Override
     public void nullstill() {
